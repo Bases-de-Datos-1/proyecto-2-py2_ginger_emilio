@@ -25,6 +25,7 @@ CREATE ROLE Usuario;
 -- =============================
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON DATABASE::GestionHotelera TO Administrador;
+GRANT EXECUTE TO Administrador;
 
 -- =============================
 -- Otorga permisos al usuario de tipo Usuario
@@ -63,3 +64,18 @@ CREATE USER UsuarioUsuario FOR LOGIN loginUsuario;
 
 ALTER ROLE Administrador ADD MEMBER UsuarioAdministrador;
 ALTER ROLE Usuario ADD MEMBER UsuarioUsuario;
+
+
+
+USE GestionHotelera;
+GO
+SELECT 
+    r.name AS Rol,
+    m.name AS Miembro
+FROM sys.database_role_members drm
+JOIN sys.database_principals r ON drm.role_principal_id = r.principal_id
+JOIN sys.database_principals m ON drm.member_principal_id = m.principal_id;
+
+USE GestionHotelera;
+GO
+

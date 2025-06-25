@@ -22,8 +22,9 @@ GO
 CREATE OR ALTER VIEW Vista_Establecimiento_Completo AS
 SELECT 
     e.id_establecimiento,
-    e.nombre AS nombre_establecimiento,
+    e.nombre AS nombre,
     e.cedula_juridica,
+	et.id_establecimiento_tipo,
     et.nombre AS tipo_establecimiento,
     e.provincia,
     e.canton,

@@ -1,56 +1,56 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import HeaderAdmin from "./components/HeaderAdmin";
+import FooterAdmin from "./components/FooterAdmin";
 
-// Estas serían tus "páginas"
-function Home() {
-  return <h2>Inicio del sistema hotelero</h2>;
+import Inicio from "./pages/Inicio";
+import AdminLogin from "./pages/AdminLogin";
+import Mantenimiento from "./pages/Mantenimiento";
+import MantenimientoHoteles from './pages/MantenimientoHoteles';
+
+import BuscadorHoteles from "./pages/BuscadorHoteles";
+import RutaPrivada from "./components/RutaPrivada";
+
+function Layout() {
+    const location = useLocation();
+
+    const isAdminLogin = location.pathname === '/admin';
+    const isAdminSection = location.pathname.startsWith('/admin/') && !isAdminLogin;
+
+    return (
+        <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+            {!isAdminLogin && (isAdminSection ? <HeaderAdmin /> : <Header />)}
+
+            <main style={{ flex: 1 }}>
+                <Routes>
+                    <Route path="/" element={<Inicio />} />
+                    <Route path="/buscadorHoteles" element={<BuscadorHoteles />} />
+                    <Route path="/admin" element={<AdminLogin />} />
+                    <Route path="/admin/mantenimiento" element={
+                        <RutaPrivada>
+                            <Mantenimiento />
+                        </RutaPrivada>
+                    } />
+                    <Route path="/admin/mantenimiento/hoteles" element={
+                        <RutaPrivada>
+                            <MantenimientoHoteles />
+                        </RutaPrivada>
+                        } />
+                </Routes>
+            </main>
+
+            {!isAdminLogin && (isAdminSection ? <FooterAdmin /> : <Footer />)}
+        </div>
+    );
 }
 
-function Establecimientos() {
-  const [datos, setDatos] = useState([]);
-  useEffect(() => {
-    fetch('http://localhost:3001/api/establecimientos')
-      .then(res => res.json())
-      .then(data => setDatos(data));
-  }, []);
-  
-  return (
-    <div>
-      <h2>Establecimientos</h2>
-      <ul>
-        {datos.map(e => (
-          <li key={e.id_establecimiento}>{e.nombre}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function Contacto() {
-  return <h2>Página de contacto</h2>;
-}
-
-// Estructura principal
 function App() {
-  return (
-    <Router>
-      <div>
-        {/* Menú de navegación */}
-        <nav>
-          <Link to="/">Inicio</Link> |{" "}
-          <Link to="/establecimientos">Establecimientos</Link> |{" "}
-          <Link to="/contacto">Contacto</Link>
-        </nav>
-
-        {/* Páginas según la ruta */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/establecimientos" element={<Establecimientos />} />
-          <Route path="/contacto" element={<Contacto />} />
-        </Routes>
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <Layout />
+        </Router>
+    );
 }
 
 export default App;

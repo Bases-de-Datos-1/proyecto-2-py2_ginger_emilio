@@ -6,7 +6,7 @@ export default function Footer() {
       textAlign: "center",
       marginTop: "auto"
     }}>
-      <p>© 2025 Sistema de Gestión Hotelera - Proyecto Universitario</p>
+      <p>© 2025 Sistema de Gestión Hotelera</p>
     </footer>
   );
 }

@@ -22,7 +22,6 @@ router.post('/login', async (req, res) => {
 
         const pool = await sql.connect(config);
 
-        // Asegura que el usuario existe y tiene rol
         const result = await pool.request().query(`SELECT IS_ROLEMEMBER('Administrador') AS esAdmin`);
         const esAdmin = result.recordset[0]?.esAdmin;
 

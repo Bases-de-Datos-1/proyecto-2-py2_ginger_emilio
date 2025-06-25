@@ -18,12 +18,10 @@ function FormularioHotel({ hotel, onGuardar, onCancelar }) {
         id_establecimiento_tipo: '',
     });
 
-    // Cargar datos en modo edición
     useEffect(() => {
         if (hotel) {
             setForm(hotel);
         } else {
-            // Limpiar si es nuevo
             setForm({
                 nombre: '',
                 cedula_juridica: '',
@@ -68,7 +66,6 @@ function FormularioHotel({ hotel, onGuardar, onCancelar }) {
         url_sitio_web: form.url_sitio_web
     };
 
-    // Si es edición, agregamos el ID
     if (hotel) {
         datosFiltrados.id_establecimiento = hotel.id_establecimiento;
     }

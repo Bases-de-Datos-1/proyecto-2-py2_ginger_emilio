@@ -61,7 +61,7 @@ router.put('/:id', async (req, res) => {
     try {
         const pool = await sql.connect(dbConfig);
         await pool.request()
-            .input('id_establecimiento', sql.Int, parseInt(id)) // usa el id de la URL
+            .input('id_establecimiento', sql.Int, parseInt(id)) 
             .input('nombre', sql.VarChar(100), nombre)
             .input('cedula_juridica', sql.VarChar(20), cedula_juridica)
             .input('id_establecimiento_tipo', sql.Int, id_establecimiento_tipo)

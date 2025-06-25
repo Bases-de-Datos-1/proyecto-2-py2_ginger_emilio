@@ -19,7 +19,6 @@ function AdminLogin() {
             body: JSON.stringify({ username, password }),
         });
 
-        // NO leer res.json() antes de verificar que res.ok === true
         if (!res.ok) {
             let errorData;
             try {

@@ -63,7 +63,7 @@ function MantenimientoHoteles() {
 
         if (resultado.success) {
             alert(resultado.message);
-            cargarHoteles(); // para recargar la lista
+            cargarHoteles();
         } else {
             throw new Error(resultado.message);
         }
